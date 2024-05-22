@@ -1,0 +1,7 @@
+{
+  "name": "helloIonic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
