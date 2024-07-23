@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'imagen',
+    loadChildren: () => import('./imagen/imagen.module').then( m => m.ImagenPageModule)
+  },
 ];
 
 @NgModule({
