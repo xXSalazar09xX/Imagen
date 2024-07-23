@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -8,7 +9,11 @@ import { AlertController } from '@ionic/angular';
 })
 export class HomePage {
 
-  constructor(private alertController: AlertController){}
+  constructor(private alertController: AlertController, private route:Router){}
+  imgenclick(){
+    this.route.navigateByUrl("/imagen");
+    
+  }
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'A Short Title Is Best',
