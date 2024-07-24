@@ -41,8 +41,9 @@ export class ImagenPage {
     });
 
     // Limpiar los campos después de guardar
-    this.imagenes = [];
-    this.imageUrls = [];
+  
     nombre.value = '';
+    
+    
   }
 }
