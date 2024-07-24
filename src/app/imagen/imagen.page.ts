@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ServicioService } from '../Servicio/servicio.service';
 
 @Component({
@@ -6,27 +6,43 @@ import { ServicioService } from '../Servicio/servicio.service';
   templateUrl: './imagen.page.html',
   styleUrls: ['./imagen.page.scss'],
 })
-export class ImagenPage  {
-  imagen:any;
+export class ImagenPage {
+  imagenes: any[] = [];
+  imageUrls: (string | ArrayBuffer | null)[] = [];
 
-  constructor(private serv:ServicioService) { }
-  obtenerImagen(dato:any){
-    this.imagen=dato.target.files[0];
+  constructor(private serv: ServicioService) {}
+
+  obtenerImagen(event: any) {
+    const files = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      this.imagenes.push(file);
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrls.push(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
-  storeimg(nombre:any){
-    this.serv.addimg(nombre.value ,this.imagen).subscribe({
-      next:(data:any)=>{
-        debugger
-        console.log(data)
-        
-      },
-      error:(error:any)=>{
-        debugger
-        console.error(error)
-      }
-    })
+
+  storeimg(nombre: any) {
+    this.imagenes.forEach((imagen, index) => {
+      this.serv.addimg(nombre.value, imagen).subscribe({
+        next: (data: any) => {
+          debugger;
+          console.log(data);
+        },
+        error: (error: any) => {
+          debugger;
+          console.error(error);
+        },
+      });
+    });
+
+    // Limpiar los campos después de guardar
+    this.imagenes = [];
+    this.imageUrls = [];
+    nombre.value = '';
   }
-
-  
-
 }
