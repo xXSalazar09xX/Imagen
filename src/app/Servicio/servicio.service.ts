@@ -11,6 +11,6 @@ export class ServicioService {
     let datos= new FormData();
     datos.append('nombre',nombre);
     datos.append('imagen',foto);
-    return this.http.post('http://127.0.0.1:8000/api/persona',datos);
+    return this.http.post('http://3.147.81.57/api/persona',datos);
   }
 }
